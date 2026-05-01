@@ -1,0 +1,101 @@
+:root {
+    --bg: #e0e5ec;
+    --l-shadow: #ffffff;
+    --d-shadow: #a3b1c6;
+    --primary: #4b6cb7;
+    --danger: #dc3545;
+    --success: #28a745;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background: var(--bg);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #444;
+}
+
+.auth-box {
+    width: 380px;
+    padding: 30px;
+    border-radius: 20px;
+
+    box-shadow: 8px 8px 16px var(--d-shadow),
+                -8px -8px 16px var(--l-shadow);
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.title span {
+    color: var(--primary);
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: var(--bg);
+
+    box-shadow: inset 4px 4px 8px var(--d-shadow),
+                inset -4px -4px 8px var(--l-shadow);
+
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+
+    background: var(--bg);
+
+    box-shadow: 4px 4px 8px var(--d-shadow),
+                -4px -4px 8px var(--l-shadow);
+
+    transition: 0.2s;
+}
+
+button:hover {
+    color: var(--primary);
+}
+
+.status {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.success { color: var(--success); }
+.error { color: var(--danger); }
+
+.dashboard {
+    display: none;
+    text-align: center;
+}
+
+.voila {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: var(--primary);
+}

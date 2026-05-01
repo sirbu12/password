@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="auth-box" id="authBox">
+
+    <div class="title">
+        SUPER<span>LOGIN</span>
+    </div>
+
+    <input id="username" placeholder="username">
+    <input id="password" type="password" placeholder="password">
+    <input id="password2" type="password" placeholder="repeat password">
+
+    <button onclick="register()" id="registerBtn">create account</button>
+    <button onclick="login()" id="loginBtn" style="display:none;">login</button>
+
+    <div class="status" id="status"></div>
+</div>
+
+<div class="auth-box dashboard" id="dashboard">
+    <div class="voila">voila</div>
+    <button onclick="logout()">logout</button>
+</div>
+
+<script>
+const API = "/api";
+
+function clearFields() {
+    username.value = "";
+    password.value = "";
+    password2.value = "";
+}
+
+function setStatus(msg, type) {
+    const el = document.getElementById("status");
+    el.innerText = msg;
+    el.className = "status " + type;
+}
+
+function switchToLogin() {
+    clearFields();
+
+    document.getElementById("registerBtn").style.display = "none";
+    document.getElementById("loginBtn").style.display = "block";
+
+    password2.style.display = "none";
+}
+
+async function register() {
+    const res = await fetch(API + "/register", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            username: username.value,
+            password: password.value,
+            password2: password2.value
+        })
+    });
+
+    const data = await res.json();
+
+    setStatus(data.message || data.error, res.ok ? "success" : "error");
+
+    if (res.ok) {
+        switchToLogin();
+    }
+}
+
+async function login() {
+    const res = await fetch(API + "/login", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            username: username.value,
+            password: password.value
+        })
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+        document.getElementById("authBox").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+    }
+
+    setStatus(data.message || data.error, res.ok ? "success" : "error");
+}
+
+async function logout() {
+    await fetch(API + "/logout", {method: "POST"});
+    location.reload();
+}
+</script>
+
+</body>
+</html>
